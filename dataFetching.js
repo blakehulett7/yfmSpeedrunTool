@@ -31,6 +31,4 @@ async function fetchPage(pageTitle) {
   })
 }
 
-fetchPage('Portal:Yu-Gi-Oh! Forbidden Memories characters')
-
 export { fetchPage }
