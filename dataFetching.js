@@ -1,9 +1,18 @@
 // Let's start by trying to fetch a page from Yugipedia!
 // Now, let's fetch the characters page and parse out an array of all characters
 import { yourEmailHere } from './contactInfo.js'
+import { writeFile } from 'node:fs'
 
-
-async function fetchPage(url) {
+async function fetchPage(pageTitle) {
+  const yugipediaAPI = 'https://yugipedia.com/api.php'
+  const params = new URLSearchParams({
+    'page': pageTitle,
+    'action': 'parse',
+    'prop': 'wikitext',
+    'format': 'json',
+  })
+  const url = yugipediaAPI + '?' + params
+  console.log(`Fetching data from ${url}...`)
   const response = await fetch(url, {
     method: 'GET',
     mode: 'cors',
@@ -12,22 +21,16 @@ async function fetchPage(url) {
     }
   })
   const content = await response.json()
-  return content
+  const wikitext = await content.parse.wikitext['*']
+  writeFile('./data/characters.js', wikitext, err => {
+    if (err) {
+      console.error(err)
+    } else {
+      console.log('file written successfully!')
+    }
+  })
 }
 
+fetchPage('Portal:Yu-Gi-Oh! Forbidden Memories characters')
 
-
-
-
-
-const testPageTitle = 'Portal:Yu-Gi-Oh! Forbidden Memories characters'
-const yugipediaAPI = 'https://yugipedia.com/api.php'
-const params = new URLSearchParams({
-  'page': testPageTitle,
-  'action': 'parse',
-  'prop': 'wikitext',
-  'format': 'json',
-})
-const testURL = yugipediaAPI + '?' + params
-const content = await fetchPage(testURL)
-console.log(content.parse.wikitext['*'])
+export { fetchPage }
