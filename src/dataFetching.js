@@ -1,6 +1,6 @@
 // Let's start by trying to fetch a page from Yugipedia!
 // Now, let's fetch the characters page and parse out an array of all characters
-import { yourEmailHere } from './contactInfo.js'
+import { yourEmailHere } from '../contactInfo.js'
 import { writeFile } from 'node:fs'
 
 async function fetchPage(pageTitle) {
