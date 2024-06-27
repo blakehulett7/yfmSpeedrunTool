@@ -22,7 +22,7 @@ async function fetchPage(pageTitle) {
   })
   const content = await response.json()
   const wikitext = await content.parse.wikitext['*']
-  writeFile('./data/characters.js', wikitext, err => {
+  writeFile('../data/characters.js', wikitext, err => {
     if (err) {
       console.error(err)
     } else {
