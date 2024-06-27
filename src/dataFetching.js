@@ -3,7 +3,7 @@
 import { yourEmailHere } from '../contactInfo.js'
 import { writeFile } from 'node:fs'
 
-async function fetchPage(pageTitle) {
+async function fetchPage(pageTitle, toFilename) {
   const yugipediaAPI = 'https://yugipedia.com/api.php'
   const params = new URLSearchParams({
     'page': pageTitle,
@@ -21,8 +21,8 @@ async function fetchPage(pageTitle) {
     }
   })
   const content = await response.json()
-  const wikitext = await content.parse.wikitext['*']
-  writeFile('../data/characters.js', wikitext, err => {
+  const contentJSON = await JSON.stringify(content)
+  writeFile(`./data/${toFilename}.json`, contentJSON, err => {
     if (err) {
       console.error(err)
     } else {
@@ -30,5 +30,7 @@ async function fetchPage(pageTitle) {
     }
   })
 }
+
+fetchPage('Portal:Yu-Gi-Oh! Forbidden Memories characters', 'characters')
 
 export { fetchPage }
