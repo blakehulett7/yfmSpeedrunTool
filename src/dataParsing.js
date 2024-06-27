@@ -1,13 +1,13 @@
 import { readFileSync } from 'node:fs'
 
-function parseWikitext(rawJsonString) {
-  return rawJsonString.parse.wikitext['*']
+function parseWikitext(rawJSON) {
+  const rawJsonObject = JSON.parse(rawJSON)
+  return rawJsonObject.parse.wikitext['*']
 }
 
 function getCharacters() {
   const rawCharacters = readFileSync('./data/characters.json', 'utf8')
-  const rawCharactersJSON = JSON.parse(rawCharacters)
-  const rawCharactersString = parseWikitext(rawCharactersJSON)
+  const rawCharactersString = parseWikitext(rawCharacters)
   const rawCharacterList = rawCharactersString.split('\n')
   const trimmedCharacterList = rawCharacterList.slice(1, -3)
   const regex = /(?<=link=)(.*)/g
@@ -17,5 +17,6 @@ function getCharacters() {
   }
   return characterList
 }
+console.log(getCharacters())
 
-export { getCharacters }
+export { parseWikitext, getCharacters }
