@@ -3,4 +3,6 @@ import { writeFile, readFile } from 'node:fs'
 
 console.log("Christ is King!")
 
-fetchPage('Portal:Yu-Gi-Oh! Forbidden Memories characters', 'characters')
+function main() {
+  fetchPage('Portal:Yu-Gi-Oh! Forbidden Memories characters', 'characters')
+}

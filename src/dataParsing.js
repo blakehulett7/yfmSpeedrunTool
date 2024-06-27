@@ -1,6 +1,8 @@
 import { readFileSync } from 'node:fs'
 
-const rawCharactersString = readFileSync('./data/characters.js', 'utf8')
+const rawCharacters = readFileSync('./data/characters.json', 'utf8')
+const rawCharactersJSON = JSON.parse(rawCharacters)
+const rawCharactersString = rawCharactersJSON.parse.wikitext['*']
 const rawCharacterList = rawCharactersString.split('\n')
 const trimmedCharacterList = rawCharacterList.slice(1, -3)
 const regex = /(?<=link=)(.*)/g
