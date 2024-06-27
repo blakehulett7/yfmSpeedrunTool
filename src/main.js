@@ -13,9 +13,9 @@ function main() {
     fetchPage('Portal:Yu-Gi-Oh! Forbidden Memories characters', 'characters')
   }
   const characterList = getCharacters()
+  console.log('Checking for character data...')
   for (let character of characterList) {
     let pathName = character.replaceAll(' ', '_')
-    console.log(`checking for ${character} data...`)
     if (existsSync(`./data/${pathName}.json`)) {
       console.log(`${character} data found!`)
     } else {
