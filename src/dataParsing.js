@@ -17,6 +17,5 @@ function getCharacters() {
   }
   return characterList
 }
-console.log(getCharacters())
 
 export { parseWikitext, getCharacters }
