@@ -18,5 +18,14 @@ function getCharacters() {
   return characterList
 }
 
+function buildDropTable(character) {
+  const rawJSON = readFileSync(`./data/${character}.json`)
+  const wikitext = parseWikitext(rawJSON)
+  const wikiArray = wikitext.split('==Drops==')
+  console.log(wikiArray[1])
+}
+
+const characterList = getCharacters()
+buildDropTable(characterList[1].replaceAll(' ', '_'))
+
 export { parseWikitext, getCharacters }
-    console.log(`Checking for ${character} data...`)

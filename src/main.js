@@ -22,7 +22,6 @@ function main() {
       fetchPage(character, pathName)
     }
   }
-  console.log(characterList)
 }
 
 main()
