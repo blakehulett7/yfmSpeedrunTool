@@ -22,24 +22,16 @@ function getCharacters() {
   return characterList
 }
 
-function buildDropTable(character) {
+function getCharacterJSON(character) {
   const characterPath = character.replaceAll(' ', '_')
-  const rawJSON = readFileSync(`./data/${characterPath}.json`)
-  const wikitext = parseWikitext(rawJSON)
-  if (wikitext.includes('==Drops==')) {
-    console.log(character + ' ' + true)
-    const wikiArray = wikitext.split('==Drops==')
-    const dropString = wikiArray[1]
-  } else if (wikitext.includes('== Drops ==')) {
-    const wikiArray = wikitext.split('== Drops ==')
-    const dropString = wikiArray[1]
-  } else {
-    return 'no drops'
-  };
-  console.log(dropString)
+  return readFileSync(`./data/${characterPath}.json`)
 }
 
+function buildDropTable(character) {
+  const rawJSON = getCharacterJSON(character)
+  const wikitext = parseWikitext(rawJSON)
+
 const characterList = getCharacters()
-buildDropTable(characterList[1])
+console.log(parseWikitext(getCharacterJSON('Simon Muran (FMR)')).split('\n'))
 
 export { parseWikitext, getCharacters }
