@@ -92,4 +92,4 @@ function buildDropTable(character) {
 }
 
 
-export { parseWikitext, getCharacters }
+export { parseWikitext, getCharacters, buildDropTable }

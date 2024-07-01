@@ -1,5 +1,7 @@
+import pl from 'nodejs-polars'
 import { fetchPage } from './dataFetching.js'
-import { getCharacters } from './dataParsing.js'
+import { getCharacters, buildDropTable } from './dataParsing.js'
+import { writeDropTable } from './dataWriting.js'
 import { writeFile, readFile, existsSync } from 'node:fs'
 
 console.log("Christ is King!")
@@ -22,7 +24,9 @@ function main() {
       fetchPage(character, pathName)
     }
   }
-  console.log('Building drop tables...')
+  console.log('Checking for drop tables...')
+  const df = buildDropTable(characterList[1])
+  writeDropTable(df, characterList[1])
 }
 
 main()
