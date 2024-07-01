@@ -31,23 +31,17 @@ function main() {
       opponents.push(character)
   }
   }
-  for (let opponent of opponents) {
-    let df = buildDropTable(opponent)
-    console.log(`${opponent}, ${df}`)
-  }
-  /*
   console.log('\nChecking for drop tables...')
-  for (let character of opponents) {
-    let characterPath = character.replaceAll(' ', '_');
+  for (let opponent of opponents) {
+    let characterPath = opponent.replaceAll(' ', '_');
     if (existsSync(`./data/processed/${characterPath}_dropTable.csv`)) {
       console.log(`${character} drop table found!`)
   } else {
       console.log(`Writing ${character} drop table.`)
-      let df = buildDropTable(character)
+      let dfArray = buildDropTable(character)
       writeDropTable(df, character)
   }
   }
-  */
 }
 
 main()
