@@ -11,7 +11,5 @@ function writeDropTable(dropTableArray, character) {
   }
 }
 
-const character = 'Seto (FMR)'
-writeDropTable(buildDropTable(character), character)
 
 export { writeDropTable }

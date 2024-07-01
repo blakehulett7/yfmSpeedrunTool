@@ -37,9 +37,8 @@ function main() {
     if (existsSync(`./data/processed/${characterPath}_dropTable.csv`)) {
       console.log(`${character} drop table found!`)
   } else {
-      console.log(`Writing ${character} drop table.`)
       let dfArray = buildDropTable(character)
-      writeDropTable(df, character)
+      writeDropTable(dfArray, character)
   }
   }
 }
