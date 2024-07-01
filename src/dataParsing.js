@@ -71,9 +71,12 @@ function buildDropTable(character) {
   const sapowArray = dropArray.slice(sapowSliceIndex, bcdSliceIndex)
   const bcdArray = dropArray.slice(bcdSliceIndex, satecSliceIndex)
   const satecArray = dropArray.slice(satecSliceIndex, endIndex)
-  const sapowDF = dropArrayToDataFrame(sapowArray)
-  const bcdDF = dropArrayToDataFrame(bcdArray)
-  const satecDF = dropArrayToDataFrame(satecArray)
+  let sapowDF = dropArrayToDataFrame(sapowArray)
+  sapowDF = sapowDF.rename({'rate': 'SaPow'})
+  let bcdDF = dropArrayToDataFrame(bcdArray)
+  bcdDF = bcdDF.rename({'rate': 'BCD'})
+  let satecDF = dropArrayToDataFrame(satecArray)
+  satecDF = satecDF.rename({'rate': 'SaTec'})
   console.log(bcdDF)
 }
 
