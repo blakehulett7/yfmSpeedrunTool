@@ -90,6 +90,10 @@ function dropArrayToDropTable(dropArray) {
 }
 
 function buildDropTable(character) {
+  let characterName = character
+  if (character.includes(' (FMR)')) {
+    characterName = character.replace(' (FMR)', '')
+  }
   const rawJSON = getCharacterJSON(character)
   const wikitext = parseWikitext(rawJSON)
   const wikiArray = wikitext.split('\n')
@@ -103,8 +107,14 @@ function buildDropTable(character) {
 }
   const dropArray = wikiArray.slice(sliceIndex, wikiArray.length)
   let dropArrayList = []
-  if (dropArray.includes(`===${character} 2nd===`)) {
-    sliceIndex = dropArray.indexOf(`===${character} 2nd===`)
+  if (dropArray.includes(`===${characterName} 3rd===`)) {
+    let sliceIndex2 = dropArray.indexOf(`===${characterName} 3rd===`)
+    sliceIndex = dropArray.indexOf(`===${characterName} 2nd===`)
+    dropArrayList.push(dropArray.slice(0, sliceIndex))
+    dropArrayList.push(dropArray.slice(sliceIndex, sliceIndex2))
+    dropArrayList.push(dropArray.slice(sliceIndex2, dropArray.length))
+} else if (dropArray.includes(`===${characterName} 2nd===`)) {
+    sliceIndex = dropArray.indexOf(`===${characterName} 2nd===`)
     dropArrayList.push(dropArray.slice(0, sliceIndex))
     dropArrayList.push(dropArray.slice(sliceIndex, dropArray.length))
 } else {

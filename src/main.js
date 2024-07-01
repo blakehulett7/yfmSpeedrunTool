@@ -27,8 +27,13 @@ function main() {
   const opponents = []
   console.log('')
   for (let character of characterList) {
-    let check = buildDropTable(character) != null
-    console.log(`${character}, ${check}`)
+    if (buildDropTable(character) != null) {
+      opponents.push(character)
+  }
+  }
+  for (let opponent of opponents) {
+    let df = buildDropTable(opponent)
+    console.log(`${opponent}, ${df}`)
   }
   /*
   console.log('\nChecking for drop tables...')
