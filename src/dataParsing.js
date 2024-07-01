@@ -53,7 +53,14 @@ function dropArrayToDataFrame(array) {
 
 function dropArrayToDropTable(dropArray) {
   const sapowSliceIndex = dropArray.indexOf('| pow_sa = ');
-  const bcdSliceIndex = dropArray.indexOf('| bcd    = ');
+  let bcdSliceIndex = 0
+  if (dropArray.includes('| bcd    = ')) {
+    bcdSliceIndex = dropArray.indexOf('| bcd    = ');
+} else if (dropArray.includes('| bcd = ')) {
+    bcdSliceIndex = dropArray.indexOf('| bcd = ');
+} else {
+    console.log('Error, bad bcd drop array format')
+}
   const satecSliceIndex = dropArray.indexOf('| tec_sa = ');
   const endIndex = dropArray.lastIndexOf('}}')
   const sapowArray = dropArray.slice(sapowSliceIndex, bcdSliceIndex)
@@ -95,11 +102,14 @@ function buildDropTable(character) {
   if (dropArray.includes(`===${character} 2nd===`)) {
     sliceIndex = dropArray.indexOf(`===${character} 2nd===`)
   }
-  console.log(sliceIndex)
   let dropArrayList = []
   dropArrayList.push(dropArray.slice(0, sliceIndex))
   dropArrayList.push(dropArray.slice(sliceIndex, dropArray.length))
-  console.log(dropArrayList[0])
+  let dropTableList = []
+  for (let i of dropArrayList) {
+    dropTableList.push(dropArrayToDropTable(i))
+  }
+  return dropTableList
 }
 
 

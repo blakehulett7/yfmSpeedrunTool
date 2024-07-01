@@ -25,7 +25,7 @@ function main() {
   }
   }
   const opponents = []
-  console.log(buildDropTable(characterList[2]))
+  console.log(buildDropTable(characterList[2]) != null)
   
   /*
   console.log('\nChecking for drop tables...')
