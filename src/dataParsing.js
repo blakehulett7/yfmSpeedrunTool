@@ -19,3 +19,4 @@ function getCharacters() {
 }
 
 export { parseWikitext, getCharacters }
+    console.log(`Checking for ${character} data...`)
