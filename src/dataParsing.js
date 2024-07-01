@@ -27,6 +27,21 @@ function getCharacterJSON(character) {
   return readFileSync(`./data/${characterPath}.json`)
 }
 
+function dropArrayToDataFrame(array) {
+  let cardDrops = []
+  for (let line of array) {
+    if (line.includes(';')) {
+      cardDrops.push(line)
+    }
+  }
+  let cardsObject = {}
+  for (let card of cardDrops) {
+    let data = card.split(';')
+    cardsObject[data[0]] = parseInt(data[1]);
+  }
+  return cardsObject
+}
+
 function buildDropTable(character) {
   const rawJSON = getCharacterJSON(character)
   const wikitext = parseWikitext(rawJSON)
@@ -47,14 +62,7 @@ function buildDropTable(character) {
   const sapowArray = dropArray.slice(sapowSliceIndex, bcdSliceIndex)
   const bcdArray = dropArray.slice(bcdSliceIndex, satecSliceIndex)
   const satecArray = dropArray.slice(satecSliceIndex, endIndex)
-  console.log(sapowArray)
-  let cards = []
-  for (let line of sapowArray) {
-    if (line.includes(';')) {
-      cards.push(line.split(';')[0])
-    }
-  }
-  console.log(cards)
+  console.log(dropArrayToDataFrame(sapowArray))
 }
 
 const characterList = getCharacters()
