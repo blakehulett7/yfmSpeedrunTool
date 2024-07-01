@@ -93,9 +93,13 @@ function buildDropTable(character) {
 }
   const dropArray = wikiArray.slice(sliceIndex, wikiArray.length)
   if (dropArray.includes(`===${character} 2nd===`)) {
-    dropArray.split(`===${character} 2nd===`)
+    sliceIndex = dropArray.indexOf(`===${character} 2nd===`)
   }
-  console.log(dropArray)
+  console.log(sliceIndex)
+  let dropArrayList = []
+  dropArrayList.push(dropArray.slice(0, sliceIndex))
+  dropArrayList.push(dropArray.slice(sliceIndex, dropArray.length))
+  console.log(dropArrayList[0])
 }
 
 
