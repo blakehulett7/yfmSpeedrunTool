@@ -51,23 +51,7 @@ function dropArrayToDataFrame(array) {
   return df
 }
 
-function buildDropTable(character) {
-  const rawJSON = getCharacterJSON(character)
-  const wikitext = parseWikitext(rawJSON)
-  const wikiArray = wikitext.split('\n')
-  let sliceIndex = 0
-  if (wikiArray.includes('==Drops==')) {
-    sliceIndex = wikiArray.indexOf('==Drops==');
-} else if (wikiArray.includes('== Drops ==')) {
-    sliceIndex = wikiArray.indexOf('== Drops ==');
-} else {
-    return null
-}
-  const dropArray = wikiArray.slice(sliceIndex, wikiArray.length)
-  console.log(dropArray)
-  if (dropArray.includes(`===${character} 2nd===`)) {
-    console.log(true)
-  }
+function dropArrayToDropTable(dropArray) {
   const sapowSliceIndex = dropArray.indexOf('| pow_sa = ');
   const bcdSliceIndex = dropArray.indexOf('| bcd    = ');
   const satecSliceIndex = dropArray.indexOf('| tec_sa = ');
@@ -93,6 +77,25 @@ function buildDropTable(character) {
   dropTable = dropTable.join(bcdDF, {how: 'left', on: 'card'})
   dropTable = dropTable.join(satecDF, {how: 'left', on: 'card'})
   return dropTable
+}
+
+function buildDropTable(character) {
+  const rawJSON = getCharacterJSON(character)
+  const wikitext = parseWikitext(rawJSON)
+  const wikiArray = wikitext.split('\n')
+  let sliceIndex = 0
+  if (wikiArray.includes('==Drops==')) {
+    sliceIndex = wikiArray.indexOf('==Drops==');
+} else if (wikiArray.includes('== Drops ==')) {
+    sliceIndex = wikiArray.indexOf('== Drops ==');
+} else {
+    return null
+}
+  const dropArray = wikiArray.slice(sliceIndex, wikiArray.length)
+  if (dropArray.includes(`===${character} 2nd===`)) {
+    dropArray.split(`===${character} 2nd===`)
+  }
+  console.log(dropArray)
 }
 
 
