@@ -35,10 +35,10 @@ function main() {
   for (let opponent of opponents) {
     let characterPath = opponent.replaceAll(' ', '_');
     if (existsSync(`./data/processed/${characterPath}_dropTable.csv`)) {
-      console.log(`${character} drop table found!`)
+      console.log(`${opponent} drop table found!`)
   } else {
-      let dfArray = buildDropTable(character)
-      writeDropTable(dfArray, character)
+      let dfArray = buildDropTable(opponent)
+      writeDropTable(dfArray, opponent)
   }
   }
 }
