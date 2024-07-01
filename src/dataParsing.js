@@ -52,16 +52,19 @@ function dropArrayToDataFrame(array) {
 }
 
 function dropArrayToDropTable(dropArray) {
-  const sapowSliceIndex = dropArray.indexOf('| pow_sa = ');
+  let sapowSliceIndex = 0
   let bcdSliceIndex = 0
-  if (dropArray.includes('| bcd    = ')) {
-    bcdSliceIndex = dropArray.indexOf('| bcd    = ');
-} else if (dropArray.includes('| bcd = ')) {
-    bcdSliceIndex = dropArray.indexOf('| bcd = ');
-} else {
-    console.log('Error, bad bcd drop array format')
-}
-  const satecSliceIndex = dropArray.indexOf('| tec_sa = ');
+  let satecSliceIndex = 0
+  for (let element of dropArray) {
+    if (element.startsWith('| p')) {
+      sapowSliceIndex = dropArray.indexOf(element)
+  } else if (element.startsWith('| b')) {
+      bcdSliceIndex = dropArray.indexOf(element)
+  } else if (element.startsWith('| t')) {
+      satecSliceIndex = dropArray.indexOf(element)
+      break
+  }
+  }
   const endIndex = dropArray.lastIndexOf('}}')
   const sapowArray = dropArray.slice(sapowSliceIndex, bcdSliceIndex)
   const bcdArray = dropArray.slice(bcdSliceIndex, satecSliceIndex)
@@ -99,12 +102,14 @@ function buildDropTable(character) {
     return null
 }
   const dropArray = wikiArray.slice(sliceIndex, wikiArray.length)
+  let dropArrayList = []
   if (dropArray.includes(`===${character} 2nd===`)) {
     sliceIndex = dropArray.indexOf(`===${character} 2nd===`)
-  }
-  let dropArrayList = []
-  dropArrayList.push(dropArray.slice(0, sliceIndex))
-  dropArrayList.push(dropArray.slice(sliceIndex, dropArray.length))
+    dropArrayList.push(dropArray.slice(0, sliceIndex))
+    dropArrayList.push(dropArray.slice(sliceIndex, dropArray.length))
+} else {
+    dropArrayList.push(dropArray)
+}
   let dropTableList = []
   for (let i of dropArrayList) {
     dropTableList.push(dropArrayToDropTable(i))
