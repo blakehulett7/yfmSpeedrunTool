@@ -34,12 +34,21 @@ function dropArrayToDataFrame(array) {
       cardDrops.push(line)
     }
   }
-  let cardsObject = {}
+  let cardList = []
+  let dropList = []
   for (let card of cardDrops) {
     let data = card.split(';')
-    cardsObject[data[0]] = parseInt(data[1]);
+    cardList.push(data[0]);
+    dropList.push(parseInt(data[1]));
   }
-  return cardsObject
+  let df = pl.DataFrame(
+    {
+      card: cardList,
+      rate: dropList
+    }
+  )
+  df.rate = df.rate.cast(pl.Int64)
+  return df
 }
 
 function buildDropTable(character) {
@@ -62,7 +71,10 @@ function buildDropTable(character) {
   const sapowArray = dropArray.slice(sapowSliceIndex, bcdSliceIndex)
   const bcdArray = dropArray.slice(bcdSliceIndex, satecSliceIndex)
   const satecArray = dropArray.slice(satecSliceIndex, endIndex)
-  console.log(dropArrayToDataFrame(sapowArray))
+  const sapowDF = dropArrayToDataFrame(sapowArray)
+  const bcdDF = dropArrayToDataFrame(bcdArray)
+  const satecDF = dropArrayToDataFrame(satecArray)
+  console.log(bcdDF)
 }
 
 const characterList = getCharacters()
