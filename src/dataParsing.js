@@ -77,14 +77,18 @@ function buildDropTable(character) {
   bcdDF = bcdDF.rename({'rate': 'BCD'})
   let satecDF = dropArrayToDataFrame(satecArray)
   satecDF = satecDF.rename({'rate': 'SaTec'})
-  console.log(sapowDF)
   let dropTableCards = sapowDF.card
+  dropTableCards = dropTableCards.concat(bcdDF.card)
+  dropTableCards = dropTableCards.concat(satecDF.card)
+  dropTableCards = dropTableCards.unique()
   let dropTable = pl.DataFrame(
     {
-      card: dropTableCards.concat(bcdDF.card).unique()
+      card: dropTableCards
 })
   dropTable = dropTable.join(sapowDF, {how: 'left', on: 'card'})
-  console.log(dropTable.join(bcdDF, {how: 'left', on: 'card'}))
+  dropTable = dropTable.join(bcdDF, {how: 'left', on: 'card'})
+  dropTable = dropTable.join(satecDF, {how: 'left', on: 'card'})
+  console.log(dropTable)
 }
 
 const characterList = getCharacters()
