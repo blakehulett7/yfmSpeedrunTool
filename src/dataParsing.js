@@ -44,11 +44,17 @@ function buildDropTable(character) {
   const bcdSliceIndex = dropArray.indexOf('| bcd    = ');
   const satecSliceIndex = dropArray.indexOf('| tec_sa = ');
   const endIndex = dropArray.lastIndexOf('}}')
-  console.log(`${sapowSliceIndex}, ${bcdSliceIndex}, ${satecSliceIndex}, ${endIndex}`)
   const sapowArray = dropArray.slice(sapowSliceIndex, bcdSliceIndex)
   const bcdArray = dropArray.slice(bcdSliceIndex, satecSliceIndex)
   const satecArray = dropArray.slice(satecSliceIndex, endIndex)
-  console.log(satecArray)
+  console.log(sapowArray)
+  let cards = []
+  for (let line of sapowArray) {
+    if (line.includes(';')) {
+      cards.push(line.split(';')[0])
+    }
+  }
+  console.log(cards)
 }
 
 const characterList = getCharacters()
