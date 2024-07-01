@@ -22,7 +22,7 @@ async function fetchPage(pageTitle, toFilename) {
   })
   const content = await response.json()
   const contentJSON = await JSON.stringify(content)
-  writeFile(`./data/${toFilename}.json`, contentJSON, err => {
+  writeFile(`./data/raw/${toFilename}.json`, contentJSON, err => {
     if (err) {
       console.error(err)
     } else {

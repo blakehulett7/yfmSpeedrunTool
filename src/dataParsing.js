@@ -10,7 +10,7 @@ function parseWikitext(rawJSON) {
   }}
 
 function getCharacters() {
-  const rawCharacters = readFileSync('./data/characters.json', 'utf8')
+  const rawCharacters = readFileSync('./data/raw/characters.json', 'utf8')
   const rawCharactersString = parseWikitext(rawCharacters)
   const rawCharacterList = rawCharactersString.split('\n')
   const trimmedCharacterList = rawCharacterList.slice(1, -3)
@@ -24,7 +24,7 @@ function getCharacters() {
 
 function getCharacterJSON(character) {
   const characterPath = character.replaceAll(' ', '_')
-  return readFileSync(`./data/${characterPath}.json`)
+  return readFileSync(`./data/raw/${characterPath}.json`)
 }
 
 function dropArrayToDataFrame(array) {
@@ -88,10 +88,8 @@ function buildDropTable(character) {
   dropTable = dropTable.join(sapowDF, {how: 'left', on: 'card'})
   dropTable = dropTable.join(bcdDF, {how: 'left', on: 'card'})
   dropTable = dropTable.join(satecDF, {how: 'left', on: 'card'})
-  console.log(dropTable)
+  return dropTable
 }
 
-const characterList = getCharacters()
-buildDropTable(characterList[1])
 
 export { parseWikitext, getCharacters }

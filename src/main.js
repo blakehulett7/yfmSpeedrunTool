@@ -7,7 +7,7 @@ console.log("Christ is King!")
 function main() {
   console.log('Welcome to the Forbidden Memories Speedrun Tool!')
   console.log('Checking for character list...')
-  if (existsSync('./data/characters.json')) {
+  if (existsSync('./data/raw/characters.json')) {
     console.log('character list found!')
   } else {
     fetchPage('Portal:Yu-Gi-Oh! Forbidden Memories characters', 'characters')
@@ -16,12 +16,13 @@ function main() {
   console.log('Checking for character data...')
   for (let character of characterList) {
     let pathName = character.replaceAll(' ', '_')
-    if (existsSync(`./data/${pathName}.json`)) {
+    if (existsSync(`./data/raw/${pathName}.json`)) {
       console.log(`${character} data found!`)
     } else {
       fetchPage(character, pathName)
     }
   }
+  console.log('Building drop tables...')
 }
 
 main()
