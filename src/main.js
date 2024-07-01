@@ -25,11 +25,9 @@ function main() {
   }
   }
   const opponents = []
-  for (let character of characterList) {
-    if (buildDropTable(character)) {
-      opponents.push(character)
-    }
-  }
+  console.log(buildDropTable(characterList[2]))
+  
+  /*
   console.log('\nChecking for drop tables...')
   for (let character of opponents) {
     let characterPath = character.replaceAll(' ', '_');
@@ -41,6 +39,7 @@ function main() {
       writeDropTable(df, character)
   }
   }
+  */
 }
 
 main()

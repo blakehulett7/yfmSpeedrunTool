@@ -61,9 +61,10 @@ function buildDropTable(character) {
 } else if (wikiArray.includes('== Drops ==')) {
     sliceIndex = wikiArray.indexOf('== Drops ==');
 } else {
-    return
+    return null
 }
   const dropArray = wikiArray.slice(sliceIndex, wikiArray.length)
+  console.log(dropArray)
   const sapowSliceIndex = dropArray.indexOf('| pow_sa = ');
   const bcdSliceIndex = dropArray.indexOf('| bcd    = ');
   const satecSliceIndex = dropArray.indexOf('| tec_sa = ');
