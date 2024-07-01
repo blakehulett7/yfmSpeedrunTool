@@ -1,9 +1,13 @@
 import { readFileSync } from 'node:fs'
+import pl from 'nodejs-polars';
 
 function parseWikitext(rawJSON) {
   const rawJsonObject = JSON.parse(rawJSON)
-  return rawJsonObject.parse.wikitext['*']
-}
+  try {
+    return rawJsonObject.parse.wikitext['*']
+  } catch {
+    return 'Invalid'
+  }}
 
 function getCharacters() {
   const rawCharacters = readFileSync('./data/characters.json', 'utf8')
@@ -19,13 +23,23 @@ function getCharacters() {
 }
 
 function buildDropTable(character) {
-  const rawJSON = readFileSync(`./data/${character}.json`)
+  const characterPath = character.replaceAll(' ', '_')
+  const rawJSON = readFileSync(`./data/${characterPath}.json`)
   const wikitext = parseWikitext(rawJSON)
-  const wikiArray = wikitext.split('==Drops==')
-  console.log(wikiArray[1])
+  if (wikitext.includes('==Drops==')) {
+    console.log(character + ' ' + true)
+    const wikiArray = wikitext.split('==Drops==')
+    const dropString = wikiArray[1]
+  } else if (wikitext.includes('== Drops ==')) {
+    const wikiArray = wikitext.split('== Drops ==')
+    const dropString = wikiArray[1]
+  } else {
+    return 'no drops'
+  };
+  console.log(dropString)
 }
 
 const characterList = getCharacters()
-buildDropTable(characterList[1].replaceAll(' ', '_'))
+buildDropTable(characterList[1])
 
 export { parseWikitext, getCharacters }
