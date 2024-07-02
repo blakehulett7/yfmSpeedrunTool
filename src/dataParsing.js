@@ -174,6 +174,4 @@ function buildFusionList() {
   return fusionObject
 }
 
-buildFusionList()
-
-export { parseWikitext, getCharacters, buildDropTable }
+export { parseWikitext, getCharacters, buildDropTable, buildFusionList }

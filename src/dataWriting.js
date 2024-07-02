@@ -1,4 +1,5 @@
-import { buildDropTable } from './dataParsing.js'
+import { writeFileSync } from 'node:fs'
+import { buildFusionList } from './dataParsing.js'
 
 function writeDropTable(dropTableArray, character) {
   const pathSuffix = ['', '_2nd', '_3rd']
@@ -11,5 +12,11 @@ function writeDropTable(dropTableArray, character) {
   }
 }
 
+function writeFusionObject(fusionObject, fusionMonsterName) {
+  const path = `./data/processed/${fusionMonsterName}FusionArray.json`
+  const fusionString = JSON.stringify(fusionObject)
+  writeFileSync(path, fusionString)
+  console.log('File written successfully!')
+}
 
 export { writeDropTable }
