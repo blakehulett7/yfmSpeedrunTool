@@ -135,21 +135,31 @@ function buildFusionList() {
   wikiArray = wikiArray.slice(startIndex, wikiArray.length)
   let endIndex = wikiArray.indexOf('}}')
   wikiArray = wikiArray.slice(0, endIndex)
-  console.log(wikiArray)
   const sliceArray = []
   for (let line of wikiArray) {
     if (line.startsWith('| f')) {
       sliceArray.push(wikiArray.indexOf(line))
     }
   }
-  console.log(sliceArray)
   const slices = []
   for (let i = 0; i < sliceArray.length - 1; i++) {
     startIndex = sliceArray[i]
     endIndex = sliceArray[i+1]
-    console.log(`si = ${startIndex}, ei = ${endIndex}`)
+    slices.push(wikiArray.slice(startIndex, endIndex))
   }
-  console.log(`${sliceArray[sliceArray.length - 1]}, end`)
+  startIndex = sliceArray[sliceArray.length - 1]
+  endIndex = wikiArray.length
+  slices.push(wikiArray.slice(startIndex, endIndex))
+  const m1Array = []
+  const regex = /(?<=\[\[)(.*)(?=\|)/g
+  for (let i = 0; i < slices.length; i += 2) {
+    let fusionArray = slices[i].slice(1, slices[i].length)
+    console.log(fusionArray)
+    for (let material of fusionArray) {
+      m1Array.push(material.match(regex)[0])
+    }
+  }
+  console.log(m1Array)
 }
 
 buildFusionList()
