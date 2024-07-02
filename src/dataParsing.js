@@ -150,16 +150,25 @@ function buildFusionList() {
   startIndex = sliceArray[sliceArray.length - 1]
   endIndex = wikiArray.length
   slices.push(wikiArray.slice(startIndex, endIndex))
-  const m1Array = []
+  let m1Array = []
+  let m2Array = []
   const regex = /(?<=\[\[)(.*)(?=\|)/g
   for (let i = 0; i < slices.length; i += 2) {
     let fusionArray = slices[i].slice(1, slices[i].length)
-    console.log(fusionArray)
     for (let material of fusionArray) {
       m1Array.push(material.match(regex)[0])
     }
   }
+  m1Array = Array.from(new Set(m1Array)) 
   console.log(m1Array)
+  for (let i = 1; i < slices.length; i += 2) {
+    let fusionArray = slices[i].slice(1, slices[i].length - 1)
+    for (let material of fusionArray) {
+      m2Array.push(material.match(regex)[0])
+    }
+  }
+  m2Array = Array.from(new Set(m2Array))
+  console.log(m2Array)
 }
 
 buildFusionList()
