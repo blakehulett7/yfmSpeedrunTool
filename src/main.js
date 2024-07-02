@@ -40,6 +40,12 @@ function main() {
       writeDropTable(dfArray, opponent)
   }
   }
+  console.log('\nChecking for fusion list...')
+  if (existsSync('./data/raw/fusions.json')) {
+    console.log('fusion list found!')
+} else {
+    fetchPage('List of Yu-Gi-Oh! Forbidden Memories Fusions (601–722)', 'fusions')
+  }
 }
 
 main()

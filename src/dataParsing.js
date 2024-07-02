@@ -127,5 +127,13 @@ function buildDropTable(character) {
   return dropTableList
 }
 
+function buildFusionList() {
+  const fusionJSON = getCharacterJSON('fusions')
+  const wikiText = parseWikitext(fusionJSON)
+  const wikiArray = wikiText.split('\n')
+  console.log(wikiArray)
+}
+
+buildFusionList()
 
 export { parseWikitext, getCharacters, buildDropTable }
