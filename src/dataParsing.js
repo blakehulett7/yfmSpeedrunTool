@@ -160,7 +160,6 @@ function buildFusionList() {
     }
   }
   m1Array = Array.from(new Set(m1Array)) 
-  console.log(m1Array)
   for (let i = 1; i < slices.length; i += 2) {
     let fusionArray = slices[i].slice(1, slices[i].length - 1)
     for (let material of fusionArray) {
@@ -168,7 +167,11 @@ function buildFusionList() {
     }
   }
   m2Array = Array.from(new Set(m2Array))
-  console.log(m2Array)
+  const fusionObject = {
+    m1: m1Array,
+    m2: m2Array
+  }
+  return fusionObject
 }
 
 buildFusionList()
