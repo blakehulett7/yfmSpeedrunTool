@@ -130,8 +130,26 @@ function buildDropTable(character) {
 function buildFusionList() {
   const fusionJSON = getCharacterJSON('fusions')
   const wikiText = parseWikitext(fusionJSON)
-  const wikiArray = wikiText.split('\n')
+  let wikiArray = wikiText.split('\n')
+  let startIndex = wikiArray.indexOf('==613: "Twin-headed Thunder Dragon"==')
+  wikiArray = wikiArray.slice(startIndex, wikiArray.length)
+  let endIndex = wikiArray.indexOf('}}')
+  wikiArray = wikiArray.slice(0, endIndex)
   console.log(wikiArray)
+  const sliceArray = []
+  for (let line of wikiArray) {
+    if (line.startsWith('| f')) {
+      sliceArray.push(wikiArray.indexOf(line))
+    }
+  }
+  console.log(sliceArray)
+  const slices = []
+  for (let i = 0; i < sliceArray.length - 1; i++) {
+    startIndex = sliceArray[i]
+    endIndex = sliceArray[i+1]
+    console.log(`si = ${startIndex}, ei = ${endIndex}`)
+  }
+  console.log(`${sliceArray[sliceArray.length - 1]}, end`)
 }
 
 buildFusionList()
