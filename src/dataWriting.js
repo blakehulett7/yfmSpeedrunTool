@@ -1,5 +1,5 @@
 import { writeFileSync } from 'node:fs'
-import { buildFusionList } from './dataParsing.js'
+import { buildChampions } from './dataParsing.js'
 
 function writeDropTable(dropTableArray, character) {
   const pathSuffix = ['', '_2nd', '_3rd']

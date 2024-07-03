@@ -128,8 +128,8 @@ function buildDropTable(character) {
   return dropTableList
 }
 
-function buildFusionList() {
-  const fusionJSON = getCharacterJSON('fusions')
+function buildChampions() {
+  const fusionJSON = readFileSync('./data/raw/fusions.json')
   const wikiText = parseWikitext(fusionJSON)
   let wikiArray = wikiText.split('\n')
   let startIndex = wikiArray.indexOf('==613: "Twin-headed Thunder Dragon"==')
@@ -175,4 +175,6 @@ function buildFusionList() {
   return fusionObject
 }
 
-export { parseWikitext, getCharacters, buildDropTable, buildFusionList }
+console.log(buildChampions())
+
+export { parseWikitext, getCharacters, buildDropTable, buildChampions }

@@ -59,7 +59,16 @@ function main() {
       writeDropTable(dfArray, opponent)
     }
   }
-  console.log('\nChecking for fusion list...')
+  console.log('\nChecking for equip lists...')
+  for (let equip of equipArray) {
+    let equipPath = equip.replaceAll(' ', '_')
+    if (existsSync(`./data/processed/equips/${equipPath}_(FMR).json`)) {
+      console.log(`${equip} data found!`)
+  } else {
+      console.log('not found')
+    }
+  }
+  console.log('\nChecking for champion data...')
 }
 
 main()
