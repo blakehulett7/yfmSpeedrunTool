@@ -137,11 +137,19 @@ function buildEquipList(equip) {
   const wikiTrim = wikiText.match(verticalRegex)
   let wikiArray = wikiTrim[0].split('\n')
   wikiArray = wikiArray.slice(0, wikiArray.length - 1)
-  const equipArray = []
+  const equipList = []
   for (let line of wikiArray) {
-    equipArray.push(line.match(horizontalRegex)[0])
+    equipList.push(line.match(horizontalRegex)[0])
   }
-  return equipArray
+  return equipList
+}
+
+function buildEquipMap() {
+  let equipMap = {}
+  for (let equip of equipArray) {
+    equipMap[equip] = buildEquipList(equip)
+  }
+  return equipMap
 }
 
 function buildChampions() {
@@ -190,7 +198,5 @@ function buildChampions() {
   }
   return fusionObject
 }
-
-buildEquipList('Dark Energy')
 
 export { parseWikitext, getCharacters, buildDropTable, buildChampions }
