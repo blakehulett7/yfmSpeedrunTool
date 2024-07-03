@@ -17,7 +17,8 @@ function main() {
   const characterList = getCharacters()
   console.log('\nChecking for character data...')
   for (let character of characterList) {
-    let pathName = character.replaceAll(' ', '_')
+    let characterPath = character.replaceAll(' ', '_')
+    let pathName = `characters/${characterPath}`
     if (existsSync(`./data/raw/${pathName}.json`)) {
       console.log(`${character} data found!`)
   } else {
@@ -33,7 +34,7 @@ function main() {
   console.log('\nChecking for drop tables...')
   for (let opponent of opponents) {
     let characterPath = opponent.replaceAll(' ', '_');
-    if (existsSync(`./data/processed/${characterPath}_dropTable.csv`)) {
+    if (existsSync(`./data/processed/dropTables/${characterPath}_dropTable.csv`)) {
       console.log(`${opponent} drop table found!`)
   } else {
       let dfArray = buildDropTable(opponent)

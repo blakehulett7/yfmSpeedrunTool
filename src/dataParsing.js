@@ -24,7 +24,7 @@ function getCharacters() {
 
 function getCharacterJSON(character) {
   const characterPath = character.replaceAll(' ', '_')
-  return readFileSync(`./data/raw/${characterPath}.json`)
+  return readFileSync(`./data/raw/characters/${characterPath}.json`)
 }
 
 function dropArrayToDataFrame(array) {
