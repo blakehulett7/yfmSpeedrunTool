@@ -30,7 +30,24 @@ function main() {
   for (let character of characterList) {
     if (buildDropTable(character) != null) {
       opponents.push(character)
+    }
   }
+  console.log('\nChecking for equips data...')
+  for (let equip of equipArray) {
+    let equipPath = equip.replaceAll(' ', '_')
+    if (existsSync(`./data/raw/equips/${equipPath}_(FMR).json`)) {
+      console.log(`${equip} data found!`)
+  } else {
+      let equipTitle = `${equip} (FMR)`
+      let pathName = `equips/${equipPath}_(FMR)`
+      fetchPage(equipTitle, pathName)
+    }
+  }
+  console.log('\nChecking for fusion data...')
+  if (existsSync('./data/raw/fusions.json')) {
+    console.log('fusion data found!')
+} else {
+    fetchPage('List of Yu-Gi-Oh! Forbidden Memories Fusions (601–722)', 'fusions')
   }
   console.log('\nChecking for drop tables...')
   for (let opponent of opponents) {
@@ -41,24 +58,6 @@ function main() {
       let dfArray = buildDropTable(opponent)
       writeDropTable(dfArray, opponent)
     }
-  }
-  console.log('\nChecking for equips data...')
-  for (let equip of equipArray) {
-    let equipPath = equip.replaceAll(' ', '_')
-    if (existsSync(`./data/raw/equips/${equipPath}_(FMR).json`)) {
-      console.log(true)
-  } else {
-      let equipTitle = `${equip} (FMR)`
-      let pathName = `equips/${equipPath}_(FMR)`
-      console.log(false)
-      //fetchPage(equipTitle, pathName)
-    }
-  }
-  console.log('\nChecking for fusion data...')
-  if (existsSync('./data/raw/fusions.json')) {
-    console.log('fusion data found!')
-} else {
-    fetchPage('List of Yu-Gi-Oh! Forbidden Memories Fusions (601–722)', 'fusions')
   }
   console.log('\nChecking for fusion list...')
 }
