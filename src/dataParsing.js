@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs'
 import pl from 'nodejs-polars';
+import { equipArray } from '../data/raw/equips.js'
 
 function parseWikitext(rawJSON) {
   const rawJsonObject = JSON.parse(rawJSON)
