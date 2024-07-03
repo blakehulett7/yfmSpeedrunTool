@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import pl from 'nodejs-polars';
 import { equipArray } from '../data/raw/equips.js'
+import { removals } from '../data/raw/removals.js'
 
 function parseWikitext(rawJSON) {
   const rawJsonObject = JSON.parse(rawJSON)
@@ -197,15 +198,16 @@ function buildChampions() {
   for (let equip of equipArray) {
     let checkList = equipMap[equip]
     if (checkList.includes('Twin-headed Thunder Dragon (FMR)')) {
-      equipList.push(equip)
+      equipList.push(`${equip} (FMR)`)
     }
   }
-  equipList.push('Bright Castle');
-  equipList.push('Megamorph');
+  equipList.push('Bright Castle (FMR)');
+  equipList.push('Megamorph (FMR)');
   const championObject = {
     m1: m1Array,
     m2: m2Array,
-    equips: equipList
+    equips: equipList,
+    removals: removals
   }
   return championObject
 }
