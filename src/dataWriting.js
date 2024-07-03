@@ -12,13 +12,6 @@ function writeDropTable(dropTableArray, character) {
   }
 }
 
-function writeFusionObject(fusionObject, fusionMonsterName) {
-  const path = `./data/processed/${fusionMonsterName}FusionArray.json`
-  const fusionString = JSON.stringify(fusionObject)
-  writeFileSync(path, fusionString)
-  console.log('File written successfully!')
-}
-
 function writeEquipMap(equipMap) {
   const path = './data/processed/equipMap.json'
   const equipString = JSON.stringify(equipMap)
@@ -26,4 +19,12 @@ function writeEquipMap(equipMap) {
   console.log('File written successfully!')
 }
 
-export { writeDropTable, writeEquipMap }
+function writeChampion(championObject, championName) {
+  const championPath = championName.replaceAll(' ', '_')
+  const path = `./data/processed/champions/${championPath}.json`
+  const championString = JSON.stringify(championObject)
+  writeFileSync(path, championString)
+  console.log('File written successfully!')
+}
+
+export { writeDropTable, writeEquipMap, writeChampion }

@@ -1,8 +1,9 @@
 import pl from 'nodejs-polars'
 import { equipArray } from '../data/raw/equips.js'
+import { champions } from '../data/raw/champions.js'
 import { fetchPage } from './dataFetching.js'
-import { getCharacters, buildDropTable, buildEquipMap } from './dataParsing.js'
-import { writeDropTable, writeEquipMap } from './dataWriting.js'
+import { getCharacters, buildDropTable, buildEquipMap, buildChampions } from './dataParsing.js'
+import { writeDropTable, writeEquipMap, writeChampion } from './dataWriting.js'
 import { writeFile, readFile, existsSync } from 'node:fs'
 
 console.log("Christ is King!")
@@ -66,6 +67,15 @@ function main() {
     writeEquipMap(buildEquipMap())
   }
   console.log('\nChecking for champions...')
+  for (let champion of champions) {
+    let championPath = champion.replaceAll(' ', '_')
+    let pathName = `./data/processed/champions/${championPath}.json`
+    if (existsSync(pathName)) {
+      console.log(`${champion} found!`)
+  } else {
+      writeChampion(buildChampions(), champion)
+    }
+  }
 }
 
 main()
