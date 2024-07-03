@@ -74,7 +74,6 @@ function main() {
       console.log(`${champion} found!`)
   } else {
       writeChampion(buildChampions(), champion)
-
     }
   }
 }
