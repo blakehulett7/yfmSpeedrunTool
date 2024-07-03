@@ -128,6 +128,22 @@ function buildDropTable(character) {
   return dropTableList
 }
 
+function buildEquipList(equip) {
+  const equipPath = equip.replaceAll(' ', '_')
+  const rawJSON = readFileSync(`./data/raw/equips/${equipPath}_(FMR).json`)
+  const wikiText = parseWikitext(rawJSON)
+  const verticalRegex = /(?<=\| targets.*=.*\n)([\s\S]*)(?=}})/gm
+  const horizontalRegex = /(?<=\* )[^].*/g
+  const wikiTrim = wikiText.match(verticalRegex)
+  let wikiArray = wikiTrim[0].split('\n')
+  wikiArray = wikiArray.slice(0, wikiArray.length - 1)
+  const equipArray = []
+  for (let line of wikiArray) {
+    equipArray.push(line.match(horizontalRegex)[0])
+  }
+  return equipArray
+}
+
 function buildChampions() {
   const fusionJSON = readFileSync('./data/raw/fusions.json')
   const wikiText = parseWikitext(fusionJSON)
@@ -175,6 +191,6 @@ function buildChampions() {
   return fusionObject
 }
 
-console.log(buildChampions())
+buildEquipList('Dark Energy')
 
 export { parseWikitext, getCharacters, buildDropTable, buildChampions }
