@@ -1,4 +1,5 @@
 import pl from 'nodejs-polars'
+import { equipArray } from '../data/raw/equips.js'
 import { fetchPage } from './dataFetching.js'
 import { getCharacters, buildDropTable } from './dataParsing.js'
 import { writeDropTable } from './dataWriting.js'
@@ -39,7 +40,19 @@ function main() {
   } else {
       let dfArray = buildDropTable(opponent)
       writeDropTable(dfArray, opponent)
+    }
   }
+  console.log('\nChecking for equips data...')
+  for (let equip of equipArray) {
+    let equipPath = equip.replaceAll(' ', '_')
+    if (existsSync(`./data/raw/equips/${equipPath}_(FMR).json`)) {
+      console.log(true)
+  } else {
+      let equipTitle = `${equip} (FMR)`
+      let pathName = `equips/${equipPath}_(FMR)`
+      console.log(false)
+      //fetchPage(equipTitle, pathName)
+    }
   }
   console.log('\nChecking for fusion data...')
   if (existsSync('./data/raw/fusions.json')) {
