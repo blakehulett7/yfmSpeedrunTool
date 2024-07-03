@@ -19,4 +19,11 @@ function writeFusionObject(fusionObject, fusionMonsterName) {
   console.log('File written successfully!')
 }
 
-export { writeDropTable }
+function writeEquipMap(equipMap) {
+  const path = './data/processed/equipMap.json'
+  const equipString = JSON.stringify(equipMap)
+  writeFileSync(path, equipString)
+  console.log('File written successfully!')
+}
+
+export { writeDropTable, writeEquipMap }

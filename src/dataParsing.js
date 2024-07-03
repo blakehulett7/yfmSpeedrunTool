@@ -192,11 +192,22 @@ function buildChampions() {
     }
   }
   m2Array = Array.from(new Set(m2Array))
-  const fusionObject = {
-    m1: m1Array,
-    m2: m2Array
+  const equipMap = JSON.parse(readFileSync('./data/processed/equipMap.json'))
+  const equipList = []
+  for (let equip of equipArray) {
+    let checkList = equipMap[equip]
+    if (checkList.includes('Twin-headed Thunder Dragon (FMR)')) {
+      equipList.push(equip)
+    }
   }
-  return fusionObject
+  equipList.push('Bright Castle');
+  equipList.push('Megamorph');
+  const championObject = {
+    m1: m1Array,
+    m2: m2Array,
+    equips: equipList
+  }
+  return championObject
 }
 
-export { parseWikitext, getCharacters, buildDropTable, buildChampions }
+export { parseWikitext, getCharacters, buildDropTable, buildEquipMap, buildChampions }

@@ -1,8 +1,8 @@
 import pl from 'nodejs-polars'
 import { equipArray } from '../data/raw/equips.js'
 import { fetchPage } from './dataFetching.js'
-import { getCharacters, buildDropTable } from './dataParsing.js'
-import { writeDropTable } from './dataWriting.js'
+import { getCharacters, buildDropTable, buildEquipMap } from './dataParsing.js'
+import { writeDropTable, writeEquipMap } from './dataWriting.js'
 import { writeFile, readFile, existsSync } from 'node:fs'
 
 console.log("Christ is King!")
@@ -63,9 +63,9 @@ function main() {
   if (existsSync('./data/processed/equipMap.json')) {
     console.log('equip map found!')
 } else {
-    console.log('false')
+    writeEquipMap(buildEquipMap())
   }
-  console.log('\nChecking for champion data...')
+  console.log('\nChecking for champions...')
 }
 
 main()
