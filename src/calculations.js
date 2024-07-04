@@ -29,7 +29,14 @@ function buildFarmTable(championObject) {
   let sumRow = farmTable.sum()
   sumRow = sumRow.withColumns(pl.col('Group').replace(null, 'Total'))
   farmTable = pl.concat([farmTable, sumRow])
-  console.log(farmTable.transpose({includeHeader: true}))
+  farmTable = farmTable.withColumns(pl.col('Seto 3rd Pow').cast(pl.Int64))
+  const columns = farmTable.Group
+  farmTable = farmTable.drop('Group')
+  farmTable = farmTable.transpose({
+    includeHeader: true,
+    columnNames: columns
+  })
+  console.log(farmTable.sort('Total', true))
 }
 
 
