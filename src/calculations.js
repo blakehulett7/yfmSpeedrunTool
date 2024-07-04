@@ -3,10 +3,10 @@ import { readFileSync, readdirSync } from 'node:fs'
 
 function buildFarmTable(championObject) {
   const keys = Object.keys(championObject)
+  const opponents = readdirSync('./data/processed/dropTables')
   let farmTable = null
   for (let key of keys) {
     const groupData = pl.DataFrame(championObject[key], {columns: ['card']})
-    const opponents = readdirSync('./data/processed/dropTables')
     let farmRow = pl.DataFrame([key], {columns: ['Group']})
     for (let opponent of opponents) {
       let dropTable = pl.readCSV(`./data/processed/dropTables/${opponent}`)
@@ -15,7 +15,7 @@ function buildFarmTable(championObject) {
       let title = opponent.replace('_(FMR)_dropTable.csv', '')
       title = title.replace('_dropTable.csv', '')
       title = title.replaceAll('_', ' ')
-      farmScore = farmScore.rename({'card': 'Group', 'SaPow': `${title}\nSaPow`, 'BCD': `${title}\nBCD`, 'SaTec': `${title}\nSaTec`})
+      farmScore = farmScore.rename({'card': 'Group', 'SaPow': `${title} Pow`, 'BCD': `${title} Bcd`, 'SaTec': `${title} Tec`})
       farmScore = farmScore.withColumns(pl.col('Group').replace(null, key))
       farmRow = farmRow.join(farmScore, {on: 'Group', how: 'left'})
     }
@@ -25,9 +25,16 @@ function buildFarmTable(championObject) {
       farmTable = farmRow
     }
   }
+  let sumRow = farmTable.sum()
+  sumRow = sumRow.withColumns(pl.col('Group').replace(null, 'Total'))
+  farmTable = pl.concat([farmTable, sumRow])
+  const columns = farmTable.Group
+  farmTable = farmTable.drop(['Group'])
+  farmTable = farmTable.transpose({includeHeader: true, columnNames: columns})
+  farmTable = farmTable.rename({'column': 'Opponent'})
   console.log(farmTable)
-  console.log(farmTable.sum())
 }
+
 
 const tthd = JSON.parse(readFileSync('./data/processed/champions/Twin-headed_Thunder_Dragon.json'))
 buildFarmTable(tthd)
