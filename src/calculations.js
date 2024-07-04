@@ -11,6 +11,7 @@ function buildFarmTable(championObject) {
     for (let opponent of opponents) {
       let dropTable = pl.readCSV(`./data/processed/dropTables/${opponent}`)
       let trimmedTable = groupData.join(dropTable, {on: 'card', how: 'left'})
+      trimmedTable = trimmedTable.withColumn(pl.col('SaPow').cast(pl.Int64))
       let farmScore = trimmedTable.sum()
       let title = opponent.replace('_(FMR)_dropTable.csv', '')
       title = title.replace('_dropTable.csv', '')
@@ -29,14 +30,13 @@ function buildFarmTable(championObject) {
   let sumRow = farmTable.sum()
   sumRow = sumRow.withColumns(pl.col('Group').replace(null, 'Total'))
   farmTable = pl.concat([farmTable, sumRow])
-  farmTable = farmTable.withColumns(pl.col('Seto 3rd Pow').cast(pl.Int64))
   const columns = farmTable.Group
   farmTable = farmTable.drop('Group')
   farmTable = farmTable.transpose({
     includeHeader: true,
     columnNames: columns
   })
-  console.log(farmTable.sort('Total', true))
+  console.log(farmTable.sort('Total', true).head(10))
 }
 
 
