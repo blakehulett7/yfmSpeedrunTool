@@ -30,13 +30,22 @@ function buildFarmTable(championObject) {
   let sumRow = farmTable.sum()
   sumRow = sumRow.withColumns(pl.col('Group').replace(null, 'Total'))
   farmTable = pl.concat([farmTable, sumRow])
+  let filteredFarmTable = farmTable.drop(['Nitemare Pow', 'Nitemare Tec', 'Nitemare Bcd'])
   const columns = farmTable.Group
   farmTable = farmTable.drop('Group')
+  filteredFarmTable = filteredFarmTable.drop('Group')
   farmTable = farmTable.transpose({
     includeHeader: true,
     columnNames: columns
   })
-  console.log(farmTable.sort('Total', true).head(10))
+  filteredFarmTable = filteredFarmTable.transpose({
+    includeHeader: true,
+    columnNames: columns
+  })
+  farmTable = farmTable.rename({'column': 'Opponent'})
+  filteredFarmTable = filteredFarmTable.rename({'column': 'Opponent'})
+  console.log(filteredFarmTable)
+  //console.log(filteredFarmTable.sort('Total', true).head(10))
 }
 
 
