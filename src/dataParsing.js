@@ -206,17 +206,19 @@ function buildChampions() {
   equipList.push('Megamorph (FMR)');
   const fieldList = []
   for (let field of Object.keys(fieldMap)) {
-    console.log(field)
+    const check = fieldMap[field].includes('Twin-headed Thunder Dragon (FMR)')
+    if (check) {
+      fieldList.push(field)
+    }
   }
   const championObject = {
     m1: m1Array,
     m2: m2Array,
     equips: equipList,
+    fields: fieldList,
     removals: removals
   }
   return championObject
 }
-
-buildChampions()
 
 export { parseWikitext, getCharacters, buildDropTable, buildEquipMap, buildChampions }
