@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import pl from 'nodejs-polars';
 import { equipArray } from '../data/raw/equips.js'
+import { fieldMap } from '../data/raw/fields.js'
 import { removals } from '../data/raw/removals.js'
 
 function parseWikitext(rawJSON) {
@@ -203,6 +204,10 @@ function buildChampions() {
   }
   equipList.push('Bright Castle (FMR)');
   equipList.push('Megamorph (FMR)');
+  const fieldList = []
+  for (let field of Object.keys(fieldMap)) {
+    console.log(field)
+  }
   const championObject = {
     m1: m1Array,
     m2: m2Array,
@@ -211,5 +216,7 @@ function buildChampions() {
   }
   return championObject
 }
+
+buildChampions()
 
 export { parseWikitext, getCharacters, buildDropTable, buildEquipMap, buildChampions }
