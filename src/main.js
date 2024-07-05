@@ -5,6 +5,7 @@ import { fetchPage } from './dataFetching.js'
 import { getCharacters, buildDropTable, buildEquipMap, buildChampions } from './dataParsing.js'
 import { writeDropTable, writeEquipMap, writeChampion, writeFarmTable } from './dataWriting.js'
 import { buildFarmTable } from './calculations.js'
+import { farmSortMenu } from './menus.js'
 import { writeFile, readFile, existsSync } from 'node:fs'
 
 console.log("Christ is King!")
@@ -84,6 +85,8 @@ function main() {
     const farmTable = buildFarmTable(buildChampions())
     writeFarmTable(farmTable, 'Twin-headed Thunder Dragon')
   }
+  console.log('\nYour champion is Twin-headed Thunder Dragon')
+  const sortBy = farmSortMenu()
 }
 
 main()
