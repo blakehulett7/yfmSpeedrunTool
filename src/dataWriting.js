@@ -1,5 +1,6 @@
 import { writeFileSync } from 'node:fs'
 import { buildChampions } from './dataParsing.js'
+import { buildFarmTable } from './calculations.js'
 
 function writeDropTable(dropTableArray, character) {
   const pathSuffix = ['', '_2nd', '_3rd']
@@ -27,4 +28,11 @@ function writeChampion(championObject, championName) {
   console.log('File written successfully!')
 }
 
-export { writeDropTable, writeEquipMap, writeChampion }
+function writeFarmTable(farmTable, championName) {
+  const championPath = championName.replaceAll(' ', '_')
+  const path = `./data/processed/farmTables/${championPath}.csv`
+  farmTable.writeCSV(path)
+  console.log(`Wrote ${championName}'s farm table!`)
+}
+
+export { writeDropTable, writeEquipMap, writeChampion, writeFarmTable }

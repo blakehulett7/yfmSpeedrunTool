@@ -44,10 +44,8 @@ function buildFarmTable(championObject) {
   })
   farmTable = farmTable.rename({'column': 'Opponent'})
   filteredFarmTable = filteredFarmTable.rename({'column': 'Opponent'})
-  console.log(filteredFarmTable)
+  return filteredFarmTable
   //console.log(filteredFarmTable.sort('Total', true).head(10))
 }
 
-
-const tthd = JSON.parse(readFileSync('./data/processed/champions/Twin-headed_Thunder_Dragon.json'))
-buildFarmTable(tthd)
+export { buildFarmTable }

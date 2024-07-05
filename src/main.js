@@ -3,7 +3,8 @@ import { equipArray } from '../data/raw/equips.js'
 import { champions } from '../data/raw/champions.js'
 import { fetchPage } from './dataFetching.js'
 import { getCharacters, buildDropTable, buildEquipMap, buildChampions } from './dataParsing.js'
-import { writeDropTable, writeEquipMap, writeChampion } from './dataWriting.js'
+import { writeDropTable, writeEquipMap, writeChampion, writeFarmTable } from './dataWriting.js'
+import { buildFarmTable } from './calculations.js'
 import { writeFile, readFile, existsSync } from 'node:fs'
 
 console.log("Christ is King!")
@@ -75,6 +76,13 @@ function main() {
   } else {
       writeChampion(buildChampions(), champion)
     }
+  }
+  console.log('\nChecking for farmTable...')
+  if (existsSync('./data/processed/farmTables/Twin-headed_Thunder_Dragon.csv')) {
+    console.log('Twin-headed Thunder Dragon farm table found!')
+} else {
+    const farmTable = buildFarmTable(buildChampions())
+    writeFarmTable(farmTable, 'Twin-headed Thunder Dragon')
   }
 }
 
