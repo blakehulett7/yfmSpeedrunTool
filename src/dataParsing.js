@@ -203,7 +203,12 @@ function buildChampionObject(championName) {
       m1Array.push(material.match(regex)[0])
       }
       catch {
-        m1Array = [1, 2]
+        m1Array = [
+        'Dragon Piper (FMR)',
+        'Ancient Jar (FMR)',
+        'Pot the Trick (FMR)',
+        'Morphing Jar (FMR)'
+        ]
       }
     }
   }
@@ -242,7 +247,7 @@ function buildChampionObject(championName) {
   return championObject
 }
 
-buildChampionObject('Twin-headed Thunder Dragon')
-buildChampionObject('Ushi Oni')
+console.log(buildChampionObject('Twin-headed Thunder Dragon'))
+console.log(buildChampionObject('Ushi Oni'))
 
 export { parseWikitext, getCharacters, buildDropTable, buildEquipMap, buildChampionObject }
