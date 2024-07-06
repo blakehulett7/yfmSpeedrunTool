@@ -31,9 +31,18 @@ function buildFarmTable(championObject) {
   sumRow = sumRow.withColumns(pl.col('Group').replace(null, 'Total'))
   farmTable = pl.concat([farmTable, sumRow])
   let filteredFarmTable = farmTable.drop([
+    'Heishin 2nd Pow',
+    'Heishin 2nd Tec',
+    'Heishin 2nd Bcd',
+    'Neku Pow',
+    'Neku Tec',
+    'Neku Bcd',
     'Nitemare Pow',
     'Nitemare Tec',
     'Nitemare Bcd',
+    'Sebek Pow',
+    'Sebek Tec',
+    'Sebek Bcd',
     'Seto 3rd Pow',
     'Seto 3rd Tec',
     'Seto 3rd Bcd',
