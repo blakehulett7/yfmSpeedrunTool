@@ -48,10 +48,15 @@ async function main() {
     }
   }
   console.log('\nChecking for fusion data...')
-  if (existsSync('./data/raw/fusions.json')) {
+  if (existsSync('./data/raw/fusions1.json')) {
     console.log('fusion data found!')
 } else {
-    fetchPage('List of Yu-Gi-Oh! Forbidden Memories Fusions (601–722)', 'fusions')
+    fetchPage('List of Yu-Gi-Oh! Forbidden Memories Fusions (401–600)', 'fusions1')
+  }
+  if (existsSync('./data/raw/fusions2.json')) {
+    console.log('fusion data found!')
+} else {
+    fetchPage('List of Yu-Gi-Oh! Forbidden Memories Fusions (601–722)', 'fusions2')
   }
   console.log('\nChecking for drop tables...')
   for (let opponent of opponents) {

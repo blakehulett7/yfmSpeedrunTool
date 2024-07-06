@@ -3,6 +3,7 @@ import pl from 'nodejs-polars';
 import { equipArray } from '../data/raw/equips.js'
 import { fieldMap } from '../data/raw/fields.js'
 import { removals } from '../data/raw/removals.js'
+import { champions } from '../data/raw/champions.js'
 
 function parseWikitext(rawJSON) {
   const rawJsonObject = JSON.parse(rawJSON)
@@ -154,11 +155,25 @@ function buildEquipMap() {
   return equipMap
 }
 
-function buildChampions() {
-  const fusionJSON = readFileSync('./data/raw/fusions.json')
-  const wikiText = parseWikitext(fusionJSON)
+function buildChampionObject(championName) {
+  const championIDs = {
+    'Ushi Oni': 401,
+    'Twin-headed Thunder Dragon': 613
+  }
+  const championID = championIDs[championName]
+  const fusion1Champions = ['Ushi Oni']
+  const fusion2Champions = ['Twin-headed Thunder Dragon']
+  const fusionJSON1 = readFileSync('./data/raw/fusions1.json')
+  const fusionJSON2 = readFileSync('./data/raw/fusions2.json')
+  let wikiText
+  if (fusion1Champions.includes(championName)) {
+    wikiText = parseWikitext(fusionJSON1)
+  }
+  else if (fusion2Champions.includes(championName)){
+    wikiText = parseWikitext(fusionJSON2);
+  }
   let wikiArray = wikiText.split('\n')
-  let startIndex = wikiArray.indexOf('==613: "Twin-headed Thunder Dragon"==')
+  let startIndex = wikiArray.indexOf(`== ${championID}: "${championName}" ==`)
   wikiArray = wikiArray.slice(startIndex, wikiArray.length)
   let endIndex = wikiArray.indexOf('}}')
   wikiArray = wikiArray.slice(0, endIndex)
@@ -183,7 +198,13 @@ function buildChampions() {
   for (let i = 0; i < slices.length; i += 2) {
     let fusionArray = slices[i].slice(1, slices[i].length)
     for (let material of fusionArray) {
+      console.log(material)
+      try {
       m1Array.push(material.match(regex)[0])
+      }
+      catch {
+        m1Array = [1, 2]
+      }
     }
   }
   m1Array = Array.from(new Set(m1Array)) 
@@ -206,7 +227,7 @@ function buildChampions() {
   equipList.push('Megamorph (FMR)');
   const fieldList = []
   for (let field of Object.keys(fieldMap)) {
-    const check = fieldMap[field].includes('Twin-headed Thunder Dragon (FMR)')
+    const check = fieldMap[field].includes(`${championName} (FMR)`)
     if (check) {
       fieldList.push(field)
     }
@@ -221,4 +242,7 @@ function buildChampions() {
   return championObject
 }
 
-export { parseWikitext, getCharacters, buildDropTable, buildEquipMap, buildChampions }
+buildChampionObject('Twin-headed Thunder Dragon')
+buildChampionObject('Ushi Oni')
+
+export { parseWikitext, getCharacters, buildDropTable, buildEquipMap, buildChampionObject }
