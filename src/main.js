@@ -11,6 +11,7 @@ import { writeFile, readFile, existsSync } from 'node:fs'
 console.log("Christ is King!")
 
 async function main() {
+  pl.Config.setTblRows(200)
   console.log('Welcome to the Forbidden Memories Speedrun Tool!')
   console.log('\nChecking for character list...')
   if (existsSync('./data/raw/characters.json')) {
@@ -91,7 +92,7 @@ async function main() {
   while (sortBy != 'exit') {
     sortBy = await farmSortMenu()
     if (sortBy != 'exit') {
-      console.log(currentFarmTable.sort(sortBy, true).head(10))
+      console.log(currentFarmTable.sort(sortBy, true))
     }
   }
 }
