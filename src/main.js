@@ -87,8 +87,13 @@ async function main() {
   }
   let currentFarmTable = pl.readCSV('./data/processed/farmTables/Twin-headed_Thunder_Dragon.csv')
   console.log('\nYour champion is Twin-headed Thunder Dragon')
-  const sortBy = await farmSortMenu()
-  console.log(currentFarmTable.sort(sortBy, true))
+  let sortBy
+  while (sortBy != 'exit') {
+    sortBy = await farmSortMenu()
+    if (sortBy != 'exit') {
+      console.log(currentFarmTable.sort(sortBy, true).head(10))
+    }
+  }
 }
 
 main()

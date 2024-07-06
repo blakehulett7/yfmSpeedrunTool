@@ -33,6 +33,11 @@ async function farmSortMenu() {
         name: 'Removal Cards',
         value: 'removals',
         description: 'Find the best opponents to farm for Removal Cards'
+      },
+      {
+        name: 'Exit',
+        value: 'exit',
+        description: 'Exit the program'
       }
     ]
   })
