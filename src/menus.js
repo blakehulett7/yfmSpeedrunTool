@@ -5,7 +5,7 @@ async function farmSortMenu() {
     message: 'Choose your farming priority',
     choices: [
       {
-        name: 'Total farm score',
+        name: 'Total Farm Score',
         value: 'Total',
         description: 'Find the best opponents to farm overall'
       },
