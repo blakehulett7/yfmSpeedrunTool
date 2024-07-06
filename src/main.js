@@ -10,7 +10,7 @@ import { writeFile, readFile, existsSync } from 'node:fs'
 
 console.log("Christ is King!")
 
-function main() {
+async function main() {
   console.log('Welcome to the Forbidden Memories Speedrun Tool!')
   console.log('\nChecking for character list...')
   if (existsSync('./data/raw/characters.json')) {
@@ -85,8 +85,10 @@ function main() {
     const farmTable = buildFarmTable(buildChampions())
     writeFarmTable(farmTable, 'Twin-headed Thunder Dragon')
   }
+  let currentFarmTable = pl.readCSV('./data/processed/farmTables/Twin-headed_Thunder_Dragon.csv')
   console.log('\nYour champion is Twin-headed Thunder Dragon')
-  const sortBy = farmSortMenu()
+  const sortBy = await farmSortMenu()
+  console.log(currentFarmTable.sort(sortBy, true))
 }
 
 main()

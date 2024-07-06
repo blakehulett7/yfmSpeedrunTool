@@ -1,7 +1,7 @@
 import { select } from '@inquirer/prompts'
 
-function farmSortMenu() {
-  const answer = select({
+async function farmSortMenu() {
+  const answer = await select({
     message: 'Choose your farming priority',
     choices: [
       {
