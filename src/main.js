@@ -110,7 +110,6 @@ async function main() {
     if (myChampion === 'exit') {
       return
     }
-    console.log(`Your champion is ${myChampion}`)
     let farmTableIndex = championFarmTableMap[myChampion]
     let farmTable = farmTables[farmTableIndex]
     let sortBy

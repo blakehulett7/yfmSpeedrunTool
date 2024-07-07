@@ -1,4 +1,5 @@
 import { select } from '@inquirer/prompts'
+import { readFileSync } from 'node:fs'
 
 async function farmSortMenu() {
   const answer = await select({
@@ -44,24 +45,28 @@ async function farmSortMenu() {
 }
 
 async function championMenu() {
+  const tthd = JSON.parse(readFileSync('./data/processed/champions/Twin-headed_Thunder_Dragon.json'))
+  const ushiOni = JSON.parse(readFileSync('./data/processed/champions/Ushi_Oni.json'))
+  const darkElf = JSON.parse(readFileSync('./data/processed/champions/Dark_Elf.json'))
+  const mysticalSand = JSON.parse(readFileSync('./data/processed/champions/Mystical_Sand.json'))
   const answer = await select({
     message: 'Select your champion!',
     choices: [
       {
         value: 'Twin-headed Thunder Dragon',
-        description: 'Select if you have thunders and dragons!'
+        description: `Select if you have thunders and dragons + any of: [${tthd.equips}]`
       },
       {
         value: 'Ushi Oni',
-        description: 'Select if you have jars and spellcasters!'
+        description: `Select if you have jars and spellcasters + any of: [${ushiOni.equips}]`
       },
       {
         value: 'Dark Elf',
-        description: 'Select if you have fairies and dark mercuries!'
+        description: `Select if you have fairies and dark mercuries + any of: [${darkElf.equips}]`
       },
       {
         value: 'Mystical Sand',
-        description: 'Select if you have rocks and girls!'
+        description: `Select if you have rocks and girls + any of: [${mysticalSand.equips}]`
       },
       {
         name: 'Exit',
