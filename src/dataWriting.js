@@ -1,5 +1,4 @@
 import { writeFileSync } from 'node:fs'
-import { buildChampions } from './dataParsing.js'
 import { buildFarmTable } from './calculations.js'
 
 function writeDropTable(dropTableArray, character) {

@@ -198,7 +198,6 @@ function buildChampionObject(championName) {
   for (let i = 0; i < slices.length; i += 2) {
     let fusionArray = slices[i].slice(1, slices[i].length)
     for (let material of fusionArray) {
-      console.log(material)
       try {
       m1Array.push(material.match(regex)[0])
       }
@@ -224,7 +223,7 @@ function buildChampionObject(championName) {
   const equipList = []
   for (let equip of equipArray) {
     let checkList = equipMap[equip]
-    if (checkList.includes('Twin-headed Thunder Dragon (FMR)')) {
+    if (checkList.includes(`${championName} (FMR)`)) {
       equipList.push(`${equip} (FMR)`)
     }
   }
@@ -246,8 +245,5 @@ function buildChampionObject(championName) {
   }
   return championObject
 }
-
-console.log(buildChampionObject('Twin-headed Thunder Dragon'))
-console.log(buildChampionObject('Ushi Oni'))
 
 export { parseWikitext, getCharacters, buildDropTable, buildEquipMap, buildChampionObject }

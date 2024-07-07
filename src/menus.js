@@ -35,6 +35,27 @@ async function farmSortMenu() {
         description: 'Find the best opponents to farm for Removal Cards'
       },
       {
+        name: 'Go Back',
+        value: 'exit'
+      }
+    ]
+  })
+  return answer
+}
+
+async function championMenu() {
+  const answer = await select({
+    message: 'Select your champion!',
+    choices: [
+      {
+        value: 'Twin-headed Thunder Dragon',
+        description: 'Select if you have thunders and dragons!'
+      },
+      {
+        value: 'Ushi Oni',
+        description: 'Select if you have jars and spellcasters!'
+      },
+      {
         name: 'Exit',
         value: 'exit',
         description: 'Exit the program'
@@ -44,4 +65,4 @@ async function farmSortMenu() {
   return answer
 }
 
-export { farmSortMenu }
+export { farmSortMenu, championMenu }

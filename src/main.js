@@ -2,10 +2,10 @@ import pl from 'nodejs-polars'
 import { equipArray } from '../data/raw/equips.js'
 import { champions } from '../data/raw/champions.js'
 import { fetchPage } from './dataFetching.js'
-import { getCharacters, buildDropTable, buildEquipMap, buildChampions } from './dataParsing.js'
+import { getCharacters, buildDropTable, buildEquipMap, buildChampionObject } from './dataParsing.js'
 import { writeDropTable, writeEquipMap, writeChampion, writeFarmTable } from './dataWriting.js'
 import { buildFarmTable } from './calculations.js'
-import { farmSortMenu } from './menus.js'
+import { farmSortMenu, championMenu } from './menus.js'
 import { writeFile, readFile, existsSync } from 'node:fs'
 
 console.log("Christ is King!")
@@ -81,23 +81,42 @@ async function main() {
     if (existsSync(pathName)) {
       console.log(`${champion} found!`)
   } else {
-      writeChampion(buildChampions(), champion)
+      writeChampion(buildChampionObject(champion), champion)
     }
   }
-  console.log('\nChecking for farmTable...')
-  if (existsSync('./data/processed/farmTables/Twin-headed_Thunder_Dragon.csv')) {
-    console.log('Twin-headed Thunder Dragon farm table found!')
-} else {
-    const farmTable = buildFarmTable(buildChampions())
-    writeFarmTable(farmTable, 'Twin-headed Thunder Dragon')
+  console.log('\nChecking for farmTables...')
+  let farmTables = []
+  for (let champion of champions) {
+    let championPath = champion.replaceAll(' ', '_')
+    if (existsSync(`./data/processed/farmTables/${championPath}.csv`)) {
+      console.log(`${champion} farm table found!`)
+  } else {
+      const farmTable = buildFarmTable(buildChampionObject(champion))
+      writeFarmTable(farmTable, champion)
+    }
+    let currentFarmTable = pl.readCSV(`./data/processed/farmTables/${championPath}.csv`)
+    farmTables.push(currentFarmTable)
   }
-  let currentFarmTable = pl.readCSV('./data/processed/farmTables/Twin-headed_Thunder_Dragon.csv')
-  console.log('\nYour champion is Twin-headed Thunder Dragon')
-  let sortBy
-  while (sortBy != 'exit') {
-    sortBy = await farmSortMenu()
-    if (sortBy != 'exit') {
-      console.log(currentFarmTable.sort(sortBy, true))
+  const championFarmTableMap = {
+    'Twin-headed Thunder Dragon': 0,
+    'Ushi Oni': 1
+  }
+  let myChampion;
+  console.log('')
+  while (myChampion != 'exit') {
+    myChampion = await championMenu()
+    if (myChampion === 'exit') {
+      return
+    }
+    console.log(`Your champion is ${myChampion}`)
+    let farmTableIndex = championFarmTableMap[myChampion]
+    let farmTable = farmTables[farmTableIndex]
+    let sortBy
+    while (sortBy != 'exit') {
+      sortBy = await farmSortMenu()
+      if (sortBy != 'exit') {
+        console.log(farmTable.sort(sortBy, true))
+      }
     }
   }
 }
