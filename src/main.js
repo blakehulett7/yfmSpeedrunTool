@@ -100,7 +100,8 @@ async function main() {
   const championFarmTableMap = {
     'Twin-headed Thunder Dragon': 0,
     'Ushi Oni': 1,
-    'Dark Elf': 2
+    'Dark Elf': 2,
+    'Mystical Sand': 3
   }
   let myChampion;
   console.log('')

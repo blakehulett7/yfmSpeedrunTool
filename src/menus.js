@@ -60,6 +60,10 @@ async function championMenu() {
         description: 'Select if you have fairies and dark mercuries!'
       },
       {
+        value: 'Mystical Sand',
+        description: 'Select if you have rocks and girls!'
+      },
+      {
         name: 'Exit',
         value: 'exit',
         description: 'Exit the program'
