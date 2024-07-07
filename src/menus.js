@@ -56,6 +56,10 @@ async function championMenu() {
         description: 'Select if you have jars and spellcasters!'
       },
       {
+        value: 'Dark Elf',
+        description: 'Select if you have fairies and dark mercuries!'
+      },
+      {
         name: 'Exit',
         value: 'exit',
         description: 'Exit the program'

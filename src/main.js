@@ -99,7 +99,8 @@ async function main() {
   }
   const championFarmTableMap = {
     'Twin-headed Thunder Dragon': 0,
-    'Ushi Oni': 1
+    'Ushi Oni': 1,
+    'Dark Elf': 2
   }
   let myChampion;
   console.log('')

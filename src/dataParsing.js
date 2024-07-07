@@ -158,10 +158,11 @@ function buildEquipMap() {
 function buildChampionObject(championName) {
   const championIDs = {
     'Ushi Oni': 401,
-    'Twin-headed Thunder Dragon': 613
+    'Twin-headed Thunder Dragon': 613,
+    'Dark Elf': 551
   }
   const championID = championIDs[championName]
-  const fusion1Champions = ['Ushi Oni']
+  const fusion1Champions = ['Ushi Oni', 'Dark Elf']
   const fusion2Champions = ['Twin-headed Thunder Dragon']
   const fusionJSON1 = readFileSync('./data/raw/fusions1.json')
   const fusionJSON2 = readFileSync('./data/raw/fusions2.json')
